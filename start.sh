@@ -1,12 +1,14 @@
 #!/bin/bash
 set -e
 
+mv /app/* /data/db
+
 if [ "${1:0:1}" = '-' ]; then
 	set -- mongod "$@"
 fi
 
 if [ "$1" = 'mongod' ]; then
-	chown -R mongodb /app
+	chown -R mongodb /data/db
 
 	numa='numactl --interleave=all'
 	if $numa true &> /dev/null; then
